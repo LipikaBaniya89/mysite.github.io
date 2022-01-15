@@ -21,6 +21,8 @@ function App() {
     {id : " p003 ",name :" Samsung Galaxy ", price: 15000, discount: 10000},
     {id : " p004 ",name :" Airpods ", price: 4890, discount: 9000},
     {id : " p005 ",name :" Skull Candy ", price: 3890, discount: 7000}, 
+    {id : " p006 ",name :" JIB wireleass earbuds", price: 2890, discount: 6080}, 
+    {id : " p007 ",name :" Oppo ", price: 12000, discount: 7000}, 
   ];
 
   const addItem = () => {
@@ -35,8 +37,6 @@ function App() {
 
     for(let x in dataItems) {
       if(dataItems[x].pid == pid) {
-        dataItems[x].ppu = parseInt(dataItems[x].ppu) + parseInt(ppuRef.current.value);
-        dataItems[x].dis = parseInt(dataItems[x].dis) + parseInt(disRef.current.value);
         dataItems[x].qty = parseInt(dataItems[x].qty) + parseInt(qtyRef.current.value);
         newItem = false;
         break;
@@ -54,6 +54,7 @@ function App() {
   
       dataItems.push(itemObj);
     }
+    
     setDataItems([...dataItems]);
     // setDataItems(dataItems)
   };
@@ -74,12 +75,12 @@ function App() {
     <Container>
       <Row>
       <h1 style={{color: '#000000', textAlign:"center", fontWeight: "bold", fontSize: "45px", fontFamily:"Times New Roman", marginTop:"20px", marginBottom:"40px"}}>IT Company</h1>
-        <Col xs={5} style={{backgroundColor:'#D3D3D3', paddingTop: "20px", paddingBottom: "20px"}}>
-        <h2 style={{color: '#000000', textAlign:"left", fontSize: "20px", fontFamily:"Times New Roman"}}>Add Items to Quotation Table : </h2>
-        <Col xs={7} style={{backgroundColor:'#D3D3D3', textAlign:"left"}}>
+        <Col xs={5} style={{backgroundColor:'#808080', paddingTop: "20px", paddingBottom: "20px"}}>
+        <h2 style={{color: '#FFFFFF', textAlign:"left", fontSize: "20px", fontFamily:"Times New Roman"}}>Add Items to Quotation Table : </h2>
+        <Col xs={7} style={{backgroundColor:'#808080', textAlign:"left"}}>
           <Form textAlign="center">
             <Form.Group className="mb-3" controlId="formItem">
-              <Form.Label>Item</Form.Label>
+              <Form.Label style={{color:'#FFFFFF'}}>Item</Form.Label>
               <Form.Select 
                 aria-label="Default select example" 
                 ref={itemRef} 
@@ -90,21 +91,21 @@ function App() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formPrice">
-              <Form.Label>Price</Form.Label>
+              <Form.Label style={{color:'#FFFFFF'}}>Price</Form.Label>
               <Form.Control type="number" placeholder="Price Per Unit" ref={ppuRef}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formQauntity">
-              <Form.Label>Quantity</Form.Label>
+              <Form.Label style={{color:'#FFFFFF'}}>Quantity</Form.Label>
               <Form.Control type="number" placeholder="Quantity"  ref={qtyRef}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formDiscount">
-              <Form.Label>Discount</Form.Label>
+              <Form.Label style={{color:'#FFFFFF'}}>Discount</Form.Label>
               <Form.Control type="number" placeholder="Discount" ref={disRef}/>
             </Form.Group>
 
-            <Button variant="outline-dark" onClick={addItem}>
+            <Button variant="dark" onClick={addItem}>
               Add
             </Button>
           </Form>

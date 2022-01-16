@@ -16,13 +16,13 @@ function App() {
  const [dataItems, setDataItems] = useLocalStorage("dataItems",[]);
 
   const dummyProductList=[
-    {id : " p001 ",name :" iPhone 13 ", price: 30000, discount: 15000},
-    {id : " p002 ",name :" Marshall ", price: 7000, discount: 8000},
-    {id : " p003 ",name :" Samsung Galaxy ", price: 15000, discount: 10000},
-    {id : " p004 ",name :" Airpods ", price: 4890, discount: 9000},
-    {id : " p005 ",name :" Skull Candy ", price: 3890, discount: 7000}, 
-    {id : " p006 ",name :" JIB wireleass earbuds", price: 2890, discount: 6080}, 
-    {id : " p007 ",name :" Oppo ", price: 12000, discount: 7000}, 
+    {id : " p001 ",name :" iPhone 13 ", price: 30000},
+    {id : " p002 ",name :" Marshall ", price: 7000},
+    {id : " p003 ",name :" Samsung Galaxy ", price: 15000},
+    {id : " p004 ",name :" Airpods ", price: 4890},
+    {id : " p005 ",name :" Skull Candy ", price: 3890}, 
+    {id : " p006 ",name :" JIB wireleass earbuds", price: 2890}, 
+    {id : " p007 ",name :" Oppo ", price: 12000}, 
   ];
 
   const addItem = () => {
@@ -36,13 +36,14 @@ function App() {
     var newItem = true;
 
     for(let x in dataItems) {
-      if(dataItems[x].pid == pid) {
+      if(dataItems[x].pid == pid && dataItems[x].ppu == ppuRef.current.value) {
         dataItems[x].qty = parseInt(dataItems[x].qty) + parseInt(qtyRef.current.value);
+        dataItems[x].dis = parseInt(dataItems[x].dis) + parseInt(disRef.current.value);
         newItem = false;
         break;
       }
     }
-
+    
     if(newItem) {
       var itemObj = {
         pid: pid,
@@ -63,7 +64,6 @@ function App() {
     const pid=itemRef.current.value;
     const product=dummyProductList.find((e) => e.id === pid);
     ppuRef.current.value= product.price
-    disRef.current.value= product.discount
   }
  
   const options =dummyProductList.map(v=> {

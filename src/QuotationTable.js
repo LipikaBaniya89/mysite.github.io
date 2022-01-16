@@ -13,21 +13,27 @@ const styles = {
 
 function QuotationTable({ data, setDataItems}) {
   const [dataRows, setDataRows] = useState();
-  const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setDiscountPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
-    let sum=0;
     let discount=0;
     let sumDiscount=0;
-    let totalDiscount=0;
+    let totalAmount=0;
+
     const z = data.map((v, i) => {
       let amount = v.qty * v.ppu;
-      sum+=amount;
-      sumDiscount+=parseInt(v.dis);
       discount=amount-v.dis;
-      totalDiscount+=discount
+
+      if(discount < 0) {
+        v.dis=0;
+        discount = 0;
+        
+      }
+      
+      sumDiscount += parseInt(v.dis);
+      totalAmount+=discount;
+   
       return (
         <tr key={i}>
           <td className={styles.textCenter}><FaTrash onClick={() => deleteClick(i)}/>
@@ -36,17 +42,15 @@ function QuotationTable({ data, setDataItems}) {
           <td style={styles.textRight}>{v.item}</td>
           <td style={styles.textRight}>{formatNumber(v.ppu)}</td>
           <td style={styles.textRightWithColor}>{formatNumber(v.dis)}</td>
-          <td style={styles.textRight}>{formatNumber(amount)}</td>
-          <td style={styles.textRightWithColor}>{formatNumber(discount)}</td>
+          <td style={styles.textRight}>{formatNumber(discount)}</td>
          
         </tr>
       );
     });
 
     setDataRows(z);
-    setDiscount(sumDiscount);
-    setTotalPrice(sum);
-    setDiscountPrice(totalDiscount)
+    setDiscount(sumDiscount)
+    setDiscountPrice(totalAmount)
   }, [data]);
 
   const deleteClick = (i) => {
@@ -89,8 +93,7 @@ function QuotationTable({ data, setDataItems}) {
             <th style={styles.textRightWhite}>Item</th>
             <th style={styles.textRightWhite}>Price/Unit</th>
             <th style={styles.textRightWithColor}>Discount</th>
-            <th style={styles.textRightWhite}>Before Discount</th> 
-            <th style={styles.textRightWithColor}>After Discount</th>       
+            <th style={styles.textRightWhite}>Amount</th>       
           </tr>
         </thead>
         <tbody>{dataRows}</tbody>
@@ -99,8 +102,7 @@ function QuotationTable({ data, setDataItems}) {
             <th colSpan={3}></th>
             <th style={styles.textCenter}>Total</th>
             <th style={styles.textRightWithColor}>{formatNumber(discount)}</th>
-            <th style={styles.textRight}>{formatNumber(totalPrice)}</th>
-            <th style={styles.textRightWithColor}>{formatNumber(totalDiscount)}</th>
+            <th style={styles.textRight}>{formatNumber(totalDiscount)}</th>
           </tr>
         </tfoot>
       </Table>

@@ -27,8 +27,7 @@ function QuotationTable({ data, setDataItems}) {
 
       if(discount < 0) {
         v.dis=0;
-        discount = 0;
-        
+        discount = 0;   
       }
       
       sumDiscount += parseInt(v.dis);
